@@ -18,7 +18,7 @@ export class EquipmentComponent implements OnInit {
        new EquipmentItem('Satellite', 1200),
        new EquipmentItem('R2 Unit', 32)
    ];
-   cargoHold: object[] = [];
+   cargoHold: EquipmentItem[] = [];
    cargoMass: number = 0;
    maximumAllowedMass: number = 2000;
    maxItems: number = 10;
@@ -35,9 +35,21 @@ export class EquipmentComponent implements OnInit {
    }
 
    canAdd(item: EquipmentItem): boolean {
+        let hasTwoAlready: boolean = false;
+        let count: number = 0;
+        for (const cargo of this.cargoHold) { //bonus mission
+            if (cargo.name == item.name) {
+              count++;
+            }
+            if (count >= 2) {
+              hasTwoAlready = true;
+              break;
+            }
+        }
         return (
              this.cargoMass + item.mass <= this.maximumAllowedMass 
           && this.cargoHold.length !== this.maxItems
+          && !hasTwoAlready
         );
    }
 
