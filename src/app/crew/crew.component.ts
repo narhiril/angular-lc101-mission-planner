@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CrewCandidate } from './crew-candidate';
 
 @Component({
   selector: 'app-crew',
@@ -8,22 +9,29 @@ import { Component, OnInit } from '@angular/core';
 export class CrewComponent implements OnInit {
 
   inCrew: boolean = false;
-  crew: object[] = [];
+  currentImageUrl: string = '';
+  crew: CrewCandidate[] = [];
 
-  candidates: object[] = [
-    {name: "Sally Ride", photo: 'https://handlers.education.launchcode.org/static/images/sally-ride.jpg'},
-    {name: "Mae Jemison", photo: 'https://handlers.education.launchcode.org/static/images/mae-jemison.jpg'},
-    {name: "Ellen Ochoa", photo: 'https://handlers.education.launchcode.org/static/images/ellen-ochoa.jpg'},
-    {name: "Frederick Gregory", photo: 'https://handlers.education.launchcode.org/static/images/frederick-gregory.jpg'},
-    {name: "Guion Bluford", photo: 'https://handlers.education.launchcode.org/static/images/guion-bluford.jpg'},
-    {name: "Kjell Lindgren", photo: 'https://handlers.education.launchcode.org/static/images/kjell-lindgren.jpg'},
-    {name: "Jeanette Epps", photo: 'https://handlers.education.launchcode.org/static/images/jeanette-epps.jpg'}
+  candidates: CrewCandidate[] = [
+    new CrewCandidate("Sally Ride", 'https://handlers.education.launchcode.org/static/images/sally-ride.jpg'),
+    new CrewCandidate("Mae Jemison", 'https://handlers.education.launchcode.org/static/images/mae-jemison.jpg'),
+    new CrewCandidate("Ellen Ochoa", 'https://handlers.education.launchcode.org/static/images/ellen-ochoa.jpg'),
+    new CrewCandidate("Frederick Gregory", 'https://handlers.education.launchcode.org/static/images/frederick-gregory.jpg'),
+    new CrewCandidate("Guion Bluford", 'https://handlers.education.launchcode.org/static/images/guion-bluford.jpg'),
+    new CrewCandidate("Kjell Lindgren", 'https://handlers.education.launchcode.org/static/images/kjell-lindgren.jpg'),
+    new CrewCandidate("Jeanette Epps", 'https://handlers.education.launchcode.org/static/images/jeanette-epps.jpg')
   ];
 
   constructor() { }
 
   ngOnInit() { }
 
-  // Code the 'addCrewMember' function here:
+  addCrewMember(candidate: CrewCandidate): void {
+      if (this.crew.includes(candidate)) {
+          this.crew.splice(this.crew.indexOf(candidate), 1); //remove from crew
+      } else if (this.crew.length < 3) {
+          this.crew.push(candidate);
+      }
+  }
 
 }
